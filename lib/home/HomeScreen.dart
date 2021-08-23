@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/home/CategoryScreen.dart';
-import 'package:news_app/home/SideMenu.dart';
+import 'package:news_app/home/widgets/SideMenu.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = 'HomeScreen';
@@ -23,7 +25,7 @@ class HomeScreen extends StatelessWidget {
         toolbarHeight: 70,
         backgroundColor: Theme.of(context).primaryColor,
         title: Text(
-          'News App',
+          AppLocalizations.of(context)!.title,
         ),
         titleTextStyle: TextStyle(
           color: Colors.white,
@@ -55,7 +57,7 @@ class HomeScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    'Pick your category\nof interest',
+                    AppLocalizations.of(context)!.homeScreenHeadLine,
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -70,13 +72,15 @@ class HomeScreen extends StatelessWidget {
                     categoryItem(
                         Color.fromRGBO(201, 28, 34, 1.0),
                         'assets/images/sports.png',
-                        'Sports',
+                        'sports',
+                        AppLocalizations.of(context)!.sports,
                         leftCategoryItem,
                         context),
                     categoryItem(
                         Color.fromRGBO(0, 62, 144, 1.0),
                         'assets/images/Politics.png',
-                        'Politics',
+                        'politics',
+                        AppLocalizations.of(context)!.politics,
                         rightCategoryItem,
                         context),
                   ],
@@ -87,13 +91,15 @@ class HomeScreen extends StatelessWidget {
                     categoryItem(
                         Color.fromRGBO(237, 30, 121, 1.0),
                         'assets/images/health.png',
-                        'Health',
+                        'health',
+                        AppLocalizations.of(context)!.health,
                         leftCategoryItem,
                         context),
                     categoryItem(
                         Color.fromRGBO(207, 126, 72, 1.0),
                         'assets/images/bussines.png',
-                        'Business',
+                        'business',
+                        AppLocalizations.of(context)!.business,
                         rightCategoryItem,
                         context),
                   ],
@@ -105,12 +111,14 @@ class HomeScreen extends StatelessWidget {
                         Color.fromRGBO(72, 130, 207, 1.0),
                         'assets/images/environment.png',
                         'Environment',
+                        AppLocalizations.of(context)!.environment,
                         leftCategoryItem,
                         context),
                     categoryItem(
                         Color.fromRGBO(242, 211, 82, 1.0),
                         'assets/images/science.png',
-                        'Science',
+                        'science',
+                        AppLocalizations.of(context)!.science,
                         rightCategoryItem,
                         context),
                   ],
@@ -123,14 +131,13 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget categoryItem(Color color, String image, String category,
+  Widget categoryItem(Color color, String image, String category, String title,
       BorderRadius borderRadius, BuildContext context) {
     return InkWell(
       onTap: () {
-        String title = category;
-        if (category == 'Politics')
+        if (category == 'politics' ||
+            category == 'Environment')
           category = 'general';
-        else if (category == 'Environment') category = 'general';
         Navigator.of(context).pushNamed(
           CategoryScreen.routeName,
           arguments: CategoryScreenArguments(category.toLowerCase(), title),
@@ -152,7 +159,7 @@ class HomeScreen extends StatelessWidget {
               height: 114,
             ),
             Text(
-              category,
+              title,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 22,

@@ -1,0 +1,13 @@
+{
+  "title" : "News App",
+  "categories" : "Categories",
+  "settings" : "Settings",
+  "homeScreenHeadLine" : "Pick your category\nof interest",
+  "sports" : "Sports",
+  "politics" : "Politics",
+  "health" : "Health",
+  "business" : "Business",
+  "environment" : "Environment",
+  "science" : "Science",
+  "language" : "Language"
+}

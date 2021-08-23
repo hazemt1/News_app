@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/home/HomeScreen.dart';
+import 'package:news_app/home/Setting.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class SideMenu extends StatelessWidget {
-  final List<SideMenuItem> sideMenuList = [
-    SideMenuItem(SideMenuItem.CATEGORIES, 'Categories', Icons.list),
-    SideMenuItem(SideMenuItem.SETTINGS, 'Settings', Icons.settings),
-  ];
+
   @override
   Widget build(BuildContext context) {
+    List<SideMenuItem> sideMenuList = [
+      SideMenuItem(SideMenuItem.CATEGORIES, AppLocalizations.of(context)!.categories, Icons.list,HomeScreen.routeName),
+      SideMenuItem(SideMenuItem.SETTINGS, AppLocalizations.of(context)!.settings, Icons.settings,Setting.routeName),
+    ];
     return Drawer(
       child: Column(
         children: [
@@ -15,7 +20,7 @@ class SideMenu extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 64),
             child: Center(
               child: Text(
-                'News App!',
+                '${AppLocalizations.of(context)!.title} !',
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -40,15 +45,16 @@ class SideMenu extends StatelessWidget {
 class SideMenuItem {
   static const CATEGORIES = 'Cats';
   static const SETTINGS = 'settings';
+  String routeName;
   String id;
   String title;
   IconData iconData;
 
-  SideMenuItem(this.id, this.title, this.iconData);
+  SideMenuItem(this.id, this.title, this.iconData,this.routeName);
 }
 
 class SideMenuWidget extends StatelessWidget {
-  SideMenuItem sideMenuItem;
+  final SideMenuItem sideMenuItem;
 
   SideMenuWidget(this.sideMenuItem);
 
@@ -56,7 +62,7 @@ class SideMenuWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-
+        Navigator.of(context).pushNamed(sideMenuItem.routeName);
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,

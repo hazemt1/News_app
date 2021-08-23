@@ -1,0 +1,13 @@
+{
+  "title" : "تطبيق الأخبار",
+  "categories" : "فئات",
+  "settings" : "إعدادات",
+  "homeScreenHeadLine" : "اختر فئة اهتمامك",
+  "sports" : "الرياضة",
+  "politics" : "السياسة",
+  "health" : "الصحة",
+  "business" : "الأعمال",
+  "environment" : "البيئة",
+  "science" : "العلوم",
+  "language" : "اللغة"
+}

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/api/ApiManger.dart';
-// import 'package:news_app/api/SearchText.dart';
-import 'package:news_app/home/CategoryScreen.dart';
+import 'package:news_app/api/AppConfigProvider.dart';
 import 'package:news_app/home/widgets/NewsItem.dart';
 import 'package:news_app/modal/NewsResponse.dart';
 import 'package:news_app/modal/Source.dart';
@@ -18,7 +17,7 @@ class NewsFragment extends StatefulWidget {
 
 class _NewsFragmentState extends State<NewsFragment> {
   late Future<NewsResponse> newsResponse;
-  late SearchText searchText;
+  late AppConfigProvider provider;
 
   @override
   void initState() {
@@ -27,8 +26,8 @@ class _NewsFragmentState extends State<NewsFragment> {
 
   @override
   Widget build(BuildContext context) {
-    searchText = Provider.of<SearchText>(context);
-    newsResponse = getNews(widget.source, searchText.getSearchText());
+    provider = Provider.of<AppConfigProvider>(context);
+    newsResponse = getNews(widget.source, provider.getSearchText(),provider.currentLocale);
     return FutureBuilder<NewsResponse>(
         future: newsResponse,
         builder: (context, snapShot) {
@@ -67,7 +66,7 @@ class _NewsFragmentState extends State<NewsFragment> {
 
   Future _refreshData() async {
     await Future.delayed(Duration(seconds: 1));
-    newsResponse = getNews(widget.source, searchText.getSearchText());
+    newsResponse = getNews(widget.source, provider.getSearchText(),provider.currentLocale);
     setState(() {});
   }
 }
