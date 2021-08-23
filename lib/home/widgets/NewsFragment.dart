@@ -43,12 +43,29 @@ class _NewsFragmentState extends State<NewsFragment> {
           return NewsItem(snapShot.data!.articles[index]);
         });
       } else if (snapShot.hasError) {
-        return Text('Error');
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text("Error Loading Data! Try Again!"),
+            FloatingActionButton(
+              onPressed: _refreshData,
+              child: Container(
+                  padding:EdgeInsets.only(top: 8),
+                  child: new Icon(Icons.refresh)),
+
+            )
+          ],
+        );
       }
       return Center(
         child: CircularProgressIndicator(),
       );
     });
+  }
+  Future _refreshData() async {
+    await Future.delayed(Duration(seconds: 1));
+    newsResponse = getNews(widget.source,searchText.getSearchText());
+    setState(() {});
   }
 
 }

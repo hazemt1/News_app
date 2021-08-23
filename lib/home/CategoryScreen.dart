@@ -155,7 +155,19 @@ class _CategoryScreenState extends State<CategoryScreen> {
               return  CategoryTap(snapShot.data!.sources);
 
             } else if (snapShot.hasError) {
-              return Text("Connection Error");
+               child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text("Error Loading Data! Check Your Internet!"),
+                    FloatingActionButton(
+                      onPressed: _refreshData,
+                      child: Container(
+                        padding:EdgeInsets.only(top: 8),
+                        child: new Icon(Icons.refresh)),
+
+                        )
+                    ],
+                );
             }
             return Center(
               child: CircularProgressIndicator(),
@@ -164,6 +176,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
         ),
       ),
     );
+  }
+  Future _refreshData() async {
+    await Future.delayed(Duration(seconds: 1));
+    newsSources=getSources(widget.category);
+    setState(() {});
   }
 }
 
