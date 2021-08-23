@@ -21,16 +21,5 @@ class Article {
 		publishedAt = map["publishedAt"]!=null?map["publishedAt"]:'',
 		content = map["content"]!=null?map["content"]:'';
 
-	Map<String, dynamic> toJson() {
-		final Map<String, dynamic> data = new Map<String, dynamic>();
-		data['source'] = source == null ? null : source.toJson();
-		data['author'] = author;
-		data['title'] = title;
-		data['description'] = description;
-		data['url'] = url;
-		data['urlToImage'] = urlToImage;
-		data['publishedAt'] = publishedAt;
-		data['content'] = content;
-		return data;
-	}
+
 }

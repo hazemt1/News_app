@@ -7,7 +7,6 @@ import 'package:news_app/modal/NewsResponse.dart';
 import 'package:news_app/modal/Source.dart';
 import 'package:provider/provider.dart';
 
-
 class NewsFragment extends StatefulWidget {
   final Source source;
 
@@ -23,49 +22,52 @@ class _NewsFragmentState extends State<NewsFragment> {
 
   @override
   void initState() {
-
     super.initState();
-
-
   }
 
   @override
   Widget build(BuildContext context) {
-    searchText =Provider.of<SearchText>(context);
-    newsResponse = getNews(widget.source,searchText.getSearchText());
+    searchText = Provider.of<SearchText>(context);
+    newsResponse = getNews(widget.source, searchText.getSearchText());
     return FutureBuilder<NewsResponse>(
-      future: newsResponse,
+        future: newsResponse,
         builder: (context, snapShot) {
-      if (snapShot.hasData) {
-        return ListView.builder(
-          itemCount: snapShot.data!.articles.length,
-            itemBuilder: (context,index){
-          return NewsItem(snapShot.data!.articles[index]);
+          if (snapShot.hasData) {
+            return ListView.builder(
+                itemCount: snapShot.data!.articles.length,
+                itemBuilder: (context, index) {
+                  return NewsItem(snapShot.data!.articles[index]);
+                });
+          } else if (snapShot.hasError) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 210, bottom: 40),
+                  child: Text(
+                    "Error Loading Data!\nTry Again!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 22),
+                  ),
+                ),
+                FloatingActionButton(
+                  onPressed: _refreshData,
+                  child: Container(
+                      // padding:EdgeInsets.only(top: 8),
+                      child: new Icon(Icons.refresh)),
+                )
+              ],
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
         });
-      } else if (snapShot.hasError) {
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text("Error Loading Data! Try Again!"),
-            FloatingActionButton(
-              onPressed: _refreshData,
-              child: Container(
-                  padding:EdgeInsets.only(top: 8),
-                  child: new Icon(Icons.refresh)),
-
-            )
-          ],
-        );
-      }
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    });
   }
+
   Future _refreshData() async {
     await Future.delayed(Duration(seconds: 1));
-    newsResponse = getNews(widget.source,searchText.getSearchText());
+    newsResponse = getNews(widget.source, searchText.getSearchText());
     setState(() {});
   }
-
 }

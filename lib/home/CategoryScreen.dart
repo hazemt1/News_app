@@ -6,8 +6,16 @@ import 'package:news_app/home/widgets/CategoryTap.dart';
 import 'package:news_app/modal/SourceResponse.dart';
 import 'package:provider/provider.dart';
 
-class CategoryScreen extends StatefulWidget {
+class CategoryScreenArguments {
   final String category;
+  final String title;
+  CategoryScreenArguments(this.category, this.title);
+}
+
+class CategoryScreen extends StatefulWidget {
+  static const String routeName = 'CategoryScreen';
+  final CategoryScreenArguments category;
+
   CategoryScreen(this.category);
 
   @override
@@ -19,14 +27,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   void initState() {
     super.initState();
-    newsSources = getSources(widget.category);
+    newsSources = getSources(widget.category.category);
   }
 
   bool _folded = true;
 
-  late SearchText  searchText;
+  late SearchText searchText;
 
-  String _searchText='';
+  String _searchText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +53,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         backgroundColor: Theme.of(context).primaryColor,
         title: _folded
             ? Text(
-                widget.category,
+                widget.category.title,
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -53,86 +61,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             : null,
         centerTitle: true,
         actions: [
-          Container(
-            margin: EdgeInsets.only(right: 20, top: 10, bottom: 5, left: 10),
-            child: AnimatedContainer(
-              duration: Duration(milliseconds: 400),
-              width: _folded ? 64 : 350,
-              height: 20,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32),
-                  color: _folded ? Colors.transparent : Colors.white),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    AnimatedContainer(
-                      duration: Duration(milliseconds: 400),
-                      child: InkWell(
-                        child: Icon(
-                          CupertinoIcons.clear,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _folded = true;
-                            searchText.setSearchText('') ;
-                          });
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.only(left: 10),
-                        child: !_folded
-                            ? TextField(
-                                decoration: InputDecoration(
-                                  hintText: 'Search Article',
-                                  hintStyle: TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: 'Poppins',
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                  border: InputBorder.none,
-                                ),
-                                onChanged: (text){
-                                  _searchText=text;
-                                },
-                                onSubmitted: (text) {
-                                  setState(() {
-                                    searchText.setSearchText(text);
-                                  });
-                                },
-                              )
-                            : null,
-                      ),
-                    ),
-                    AnimatedContainer(
-                      duration: Duration(milliseconds: 400),
-                      child: InkWell(
-                        child: Icon(
-                          CupertinoIcons.search,
-                          color: _folded
-                              ? Colors.white
-                              : Theme.of(context).primaryColor,
-                        ),
-                        onTap: () {
-                          setState(() {
-                            if (!_folded&&_searchText!='') {
-                              searchText.setSearchText(_searchText);
-                            }
-                            _folded = !_folded;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          searchbar(context),
         ],
         shape: ContinuousRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -152,22 +81,27 @@ class _CategoryScreenState extends State<CategoryScreen> {
           future: newsSources,
           builder: (context, snapShot) {
             if (snapShot.hasData) {
-              return  CategoryTap(snapShot.data!.sources);
-
+              return CategoryTap(snapShot.data!.sources);
             } else if (snapShot.hasError) {
-               child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text("Error Loading Data! Check Your Internet!"),
-                    FloatingActionButton(
-                      onPressed: _refreshData,
-                      child: Container(
-                        padding:EdgeInsets.only(top: 8),
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 210, bottom: 40),
+                    child: Text(
+                      "Error Loading Data!\nTry Again!",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 22),
+                    ),
+                  ),
+                  FloatingActionButton(
+                    onPressed: _refreshData,
+                    child: Container(
+                        // padding:EdgeInsets.only(top: 8),
                         child: new Icon(Icons.refresh)),
-
-                        )
-                    ],
-                );
+                  ),
+                ],
+              );
             }
             return Center(
               child: CircularProgressIndicator(),
@@ -177,20 +111,102 @@ class _CategoryScreenState extends State<CategoryScreen> {
       ),
     );
   }
+
+  Container searchbar(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(right: 20, top: 10, bottom: 5, left: 10),
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 400),
+        width: _folded ? 64 : 350,
+        height: 20,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(32),
+            color: _folded ? Colors.transparent : Colors.white),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              AnimatedContainer(
+                duration: Duration(milliseconds: 400),
+                child: InkWell(
+                  child: Icon(
+                    CupertinoIcons.clear,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      _folded = true;
+                      searchText.setSearchText('');
+                    });
+                  },
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.only(left: 10),
+                  child: !_folded
+                      ? TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Search Article',
+                            hintStyle: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Poppins',
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            border: InputBorder.none,
+                          ),
+                          onChanged: (text) {
+                            _searchText = text;
+                          },
+                          onSubmitted: (text) {
+                            setState(() {
+                              searchText.setSearchText(text);
+                            });
+                          },
+                        )
+                      : null,
+                ),
+              ),
+              AnimatedContainer(
+                duration: Duration(milliseconds: 400),
+                child: InkWell(
+                  child: Icon(
+                    CupertinoIcons.search,
+                    color:
+                        _folded ? Colors.white : Theme.of(context).primaryColor,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      if (!_folded && _searchText != '') {
+                        searchText.setSearchText(_searchText);
+                      } else if (_folded) _folded = !_folded;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Future _refreshData() async {
-    await Future.delayed(Duration(seconds: 1));
-    newsSources=getSources(widget.category);
+    await Future.delayed(Duration(milliseconds: 1));
+    newsSources = getSources(widget.category.category);
     setState(() {});
   }
 }
 
-class SearchText extends ChangeNotifier{
-  String _searchText='';
+class SearchText extends ChangeNotifier {
+  String _searchText = '';
 
-  void setSearchText(String searchText){
-    _searchText=searchText;
+  void setSearchText(String searchText) {
+    _searchText = searchText;
     notifyListeners();
   }
-  String getSearchText()=>_searchText;
 
+  String getSearchText() => _searchText;
 }

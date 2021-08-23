@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/modal/Article.dart';
 
 class NewsItem extends StatelessWidget {
-  Article article;
+  final Article article;
   NewsItem(this.article);
 
   @override
@@ -21,7 +21,9 @@ class NewsItem extends StatelessWidget {
                 width: double.infinity,
                 fit: BoxFit.fill,
               placeholder: (context,url)=>Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => Icon(Icons.error),
+              errorWidget: (context, url, error) => Image.network(
+                  'https://e7.pngegg.com/pngimages/829/733/png-clipart-logo-brand-product-trademark-font-not-found-logo-brand.png',
+              ),
             )
           ),
           Text(
