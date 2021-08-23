@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/home/SideMenu.dart';
+
 class Setting extends StatefulWidget {
-  static String routeName = 'Settings';
+  static const String routeName = 'Settings';
   @override
   _SettingState createState() => _SettingState();
 }

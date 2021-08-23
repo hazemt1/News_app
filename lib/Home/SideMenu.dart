@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/home/HomeScreen.dart';
+import 'package:news_app/home/Setting.dart';
 
 class SideMenu extends StatelessWidget {
   final List<SideMenuItem> sideMenuList = [
-    SideMenuItem(SideMenuItem.CATEGORIES, 'Categories', Icons.list),
-    SideMenuItem(SideMenuItem.SETTINGS, 'Settings', Icons.settings),
+    SideMenuItem(SideMenuItem.CATEGORIES, 'Categories', Icons.list,HomeScreen.routeName),
+    SideMenuItem(SideMenuItem.SETTINGS, 'Settings', Icons.settings,Setting.routeName),
   ];
   @override
   Widget build(BuildContext context) {
@@ -40,15 +42,16 @@ class SideMenu extends StatelessWidget {
 class SideMenuItem {
   static const CATEGORIES = 'Cats';
   static const SETTINGS = 'settings';
+  String routeName;
   String id;
   String title;
   IconData iconData;
 
-  SideMenuItem(this.id, this.title, this.iconData);
+  SideMenuItem(this.id, this.title, this.iconData,this.routeName);
 }
 
 class SideMenuWidget extends StatelessWidget {
-  SideMenuItem sideMenuItem;
+  final SideMenuItem sideMenuItem;
 
   SideMenuWidget(this.sideMenuItem);
 
@@ -56,7 +59,7 @@ class SideMenuWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-
+        Navigator.of(context).pushNamed(sideMenuItem.routeName);
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
