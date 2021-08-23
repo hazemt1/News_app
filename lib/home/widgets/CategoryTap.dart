@@ -5,6 +5,7 @@ import 'package:news_app/modal/Source.dart';
 
 class CategoryTap extends StatefulWidget {
   final List<Source> sources;
+
   CategoryTap(this.sources);
 
   @override
@@ -36,7 +37,8 @@ class _CategoryTapState extends State<CategoryTap> {
                       .toList()),
 
             ),
-            Expanded(child: TabBarView(
+            Expanded(child:
+            TabBarView(
               children: widget.sources.map((source) => NewsFragment(source)).toList(),
 
             ),),

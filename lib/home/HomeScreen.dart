@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/home/CategoryScreen.dart';
+import 'package:news_app/home/SideMenu.dart';
 
 class HomeScreen extends StatelessWidget {
   final BorderRadius leftCategoryItem = BorderRadius.only(
@@ -15,8 +16,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: SideMenu(),
       appBar: AppBar(
+
         toolbarHeight: 70,
         backgroundColor: Theme.of(context).primaryColor,
         title: Text(
@@ -105,14 +107,14 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     categoryItem(
-                      Color.fromRGBO(237, 30, 121, 1.0),
+                      Color.fromRGBO(72, 130, 207, 1.0),
                       'assets/images/environment.png',
                       'Environment',
                       leftCategoryItem,
                       context
                     ),
                     categoryItem(
-                      Color.fromRGBO(207, 126, 72, 1.0),
+                      Color.fromRGBO(242, 211, 82, 1.0),
                       'assets/images/science.png',
                       'Science',
                       rightCategoryItem,
