@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/api/ApiManger.dart';
-import 'package:news_app/home/SideMenu.dart';
+import 'package:news_app/api/AppConfigProvider.dart';
+import 'package:news_app/home/widgets/SideMenu.dart';
 import 'package:news_app/home/widgets/CategoryTap.dart';
 import 'package:news_app/modal/SourceResponse.dart';
 import 'package:provider/provider.dart';
@@ -27,18 +28,19 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   void initState() {
     super.initState();
-    newsSources = getSources(widget.category.category);
+
   }
 
   bool _folded = true;
 
-  late SearchText searchText;
+  late AppConfigProvider provider;
 
   String _searchText = '';
 
   @override
   Widget build(BuildContext context) {
-    searchText = Provider.of<SearchText>(context);
+    provider = Provider.of<AppConfigProvider>(context);
+    newsSources = getSources(widget.category.category,provider.currentLocale);
     return Scaffold(
       drawer: SideMenu(),
       appBar: AppBar(
@@ -138,7 +140,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   onTap: () {
                     setState(() {
                       _folded = true;
-                      searchText.setSearchText('');
+                      provider.setSearchText('');
                     });
                   },
                 ),
@@ -162,7 +164,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           },
                           onSubmitted: (text) {
                             setState(() {
-                              searchText.setSearchText(text);
+                              provider.setSearchText(text);
                             });
                           },
                         )
@@ -180,7 +182,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   onTap: () {
                     setState(() {
                       if (!_folded && _searchText != '') {
-                        searchText.setSearchText(_searchText);
+                        provider.setSearchText(_searchText);
                       } else if (_folded) _folded = !_folded;
                     });
                   },
@@ -195,18 +197,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   Future _refreshData() async {
     await Future.delayed(Duration(milliseconds: 1));
-    newsSources = getSources(widget.category.category);
+    newsSources = getSources(widget.category.category,provider.currentLocale);
     setState(() {});
   }
-}
-
-class SearchText extends ChangeNotifier {
-  String _searchText = '';
-
-  void setSearchText(String searchText) {
-    _searchText = searchText;
-    notifyListeners();
-  }
-
-  String getSearchText() => _searchText;
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/home/SideMenu.dart';
+import 'package:news_app/api/AppConfigProvider.dart';
+import 'package:news_app/home/widgets/SideMenu.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class Setting extends StatefulWidget {
   static const String routeName = 'Settings';
@@ -12,10 +15,11 @@ class _SettingState extends State<Setting> {
   static String language = 'English';
   @override
   Widget build(BuildContext context) {
+    final AppConfigProvider provider =Provider.of<AppConfigProvider>(context);
     return  Scaffold(
     appBar: AppBar(
       backgroundColor: Theme.of(context).primaryColor,
-    title: Text('Settings'),
+    title: Text(AppLocalizations.of(context)!.settings),
     centerTitle: true,
     shape: ContinuousRectangleBorder(
     borderRadius: BorderRadius.only(
@@ -30,7 +34,7 @@ class _SettingState extends State<Setting> {
      children: [
        Padding(
          padding:  EdgeInsets.all(25.0),
-         child: Text('Language',
+         child: Text(AppLocalizations.of(context)!.language,
              style: TextStyle(
                  fontSize: 22,
                  fontWeight: FontWeight.bold,
@@ -63,6 +67,11 @@ class _SettingState extends State<Setting> {
                  onChanged: (String? newValue) {
                    setState(() {
                      language = newValue!;
+                     if(newValue=='English')
+                       provider.changeLanguage('en');
+                     else if (newValue=='Arabic'){
+                       provider.changeLanguage('ar');
+                     }
                    });
                  },
                  items: <String>['English', 'Arabic']

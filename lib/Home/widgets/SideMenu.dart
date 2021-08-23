@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/home/HomeScreen.dart';
 import 'package:news_app/home/Setting.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class SideMenu extends StatelessWidget {
-  final List<SideMenuItem> sideMenuList = [
-    SideMenuItem(SideMenuItem.CATEGORIES, 'Categories', Icons.list,HomeScreen.routeName),
-    SideMenuItem(SideMenuItem.SETTINGS, 'Settings', Icons.settings,Setting.routeName),
-  ];
+
   @override
   Widget build(BuildContext context) {
+    List<SideMenuItem> sideMenuList = [
+      SideMenuItem(SideMenuItem.CATEGORIES, AppLocalizations.of(context)!.categories, Icons.list,HomeScreen.routeName),
+      SideMenuItem(SideMenuItem.SETTINGS, AppLocalizations.of(context)!.settings, Icons.settings,Setting.routeName),
+    ];
     return Drawer(
       child: Column(
         children: [
@@ -17,7 +20,7 @@ class SideMenu extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 64),
             child: Center(
               child: Text(
-                'News App!',
+                '${AppLocalizations.of(context)!.title} !',
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
