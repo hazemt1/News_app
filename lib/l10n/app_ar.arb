@@ -9,5 +9,6 @@
   "business" : "الأعمال",
   "environment" : "البيئة",
   "science" : "العلوم",
-  "language" : "اللغة"
+  "language" : "اللغة",
+  "articleTitle" : "عنوان الخبر"
 }
