@@ -10,5 +10,6 @@
   "environment" : "البيئة",
   "science" : "العلوم",
   "language" : "اللغة",
-  "articleTitle" : "عنوان الخبر"
+  "articleTitle" : "عنوان الخبر",
+  "articleContentTitle" : "محتوي الخبر"
 }

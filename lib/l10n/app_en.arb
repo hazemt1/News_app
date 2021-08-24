@@ -10,5 +10,6 @@
   "environment" : "Environment",
   "science" : "Science",
   "language" : "Language",
-  "articleTitle" : "News Title"
+  "articleTitle" : "News Title",
+  "articleContentTitle" : "News Content"
 }

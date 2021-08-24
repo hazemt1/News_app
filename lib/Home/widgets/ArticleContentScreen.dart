@@ -3,18 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:news_app/Home/widgets/ArticleContentScreen.dart';
 import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:news_app/api/AppConfigProvider.dart';
 import 'package:news_app/modal/Article.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class ArticleScreen extends StatelessWidget {
-  static const String routeName = 'ArticleScreen';
+class ArticleContentScreen extends StatelessWidget {
+  static const String routeName = 'ArticleContentScreen';
   final Article article;
 
-  ArticleScreen(this.article);
+  ArticleContentScreen(this.article);
 
   late AppConfigProvider provider;
 
@@ -25,7 +24,7 @@ class ArticleScreen extends StatelessWidget {
         toolbarHeight: 70,
         backgroundColor: Theme.of(context).primaryColor,
         title: Text(
-          AppLocalizations.of(context)!.articleTitle,
+          AppLocalizations.of(context)!.articleContentTitle,
           textAlign: TextAlign.center,
         ),
         titleTextStyle: TextStyle(
@@ -55,16 +54,16 @@ class ArticleScreen extends StatelessWidget {
             children: [
               ClipRRect(
                   child: CachedNetworkImage(
-                imageUrl: article.urlToImage,
-                height: 240,
-                width: double.infinity,
-                fit: BoxFit.fill,
-                placeholder: (context, url) =>
-                    Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) => Image.network(
-                  'https://e7.pngegg.com/pngimages/829/733/png-clipart-logo-brand-product-trademark-font-not-found-logo-brand.png',
-                ),
-              )),
+                    imageUrl: article.urlToImage,
+                    height: 240,
+                    width: double.infinity,
+                    fit: BoxFit.fill,
+                    placeholder: (context, url) =>
+                        Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) => Image.network(
+                      'https://e7.pngegg.com/pngimages/829/733/png-clipart-logo-brand-product-trademark-font-not-found-logo-brand.png',
+                    ),
+                  )),
               Container(
                 padding: EdgeInsets.all(15),
                 child: Column(
@@ -110,41 +109,13 @@ class ArticleScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        article.description,
+                        article.content,
                         style: TextStyle(
                             fontSize: 13,
                             fontFamily: 'Poppins',
                             color: HexColor('#42505C')),
                         textAlign: TextAlign.left,
                       ),
-                      InkWell(
-                        onTap: (){
-                          Navigator.of(context).pushNamed(ArticleContentScreen.routeName,arguments: article);
-                        },
-                        child: Container(
-                          padding: EdgeInsetsDirectional.fromSTEB(10, 20, 5, 5),
-                          margin: EdgeInsets.all(5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Image(
-                                  image: AssetImage(
-                                      'assets/images/Polygon 2.png')),
-                              Container(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
-                                child: Text(
-                                  'View Full Article',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: 'Poppins',
-                                      color: HexColor('#42505C')),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
                     ],
                   ),
                 ),
