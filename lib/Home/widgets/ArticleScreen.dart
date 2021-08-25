@@ -116,10 +116,8 @@ class ArticleScreen extends StatelessWidget {
                         textAlign: TextAlign.left,
                       ),
                       InkWell(
-                        onTap: (){
-                          // Navigator.of(context).pushNamed(ArticleContentScreen.routeName,arguments: article);
-                        _launchURL();
-                        },
+                        onTap: _launchURL,
+
                         child: Container(
                           padding: EdgeInsetsDirectional.fromSTEB(10, 20, 5, 5),
                           margin: EdgeInsets.all(5),
