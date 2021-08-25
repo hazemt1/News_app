@@ -11,5 +11,7 @@
   "science" : "Science",
   "language" : "Language",
   "articleTitle" : "News Title",
-  "articleContentTitle" : "News Content"
+  "articleContentTitle" : "News Content",
+  "search" : "Search",
+  "errorMassageForLoading" : "Error Loading Data!\nTry Again!"
 }

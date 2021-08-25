@@ -6,6 +6,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SideMenu extends StatelessWidget {
 
+  Function onSideMenuItemClick;
+  SideMenu(this.onSideMenuItemClick);
   @override
   Widget build(BuildContext context) {
     List<SideMenuItem> sideMenuList = [
@@ -31,7 +33,7 @@ class SideMenu extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               itemBuilder: (context, index) {
-                return SideMenuWidget(sideMenuList[index]);
+                return SideMenuWidget(sideMenuList[index],onSideMenuItemClick);
               },
               itemCount: sideMenuList.length,
             ),
@@ -55,14 +57,16 @@ class SideMenuItem {
 
 class SideMenuWidget extends StatelessWidget {
   final SideMenuItem sideMenuItem;
-
-  SideMenuWidget(this.sideMenuItem);
+  Function onSideMenuItemClick;
+  SideMenuWidget(this.sideMenuItem,this.onSideMenuItemClick);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(sideMenuItem.routeName);
+       // Navigator.of(context).pushNamed(sideMenuItem.routeName);
+        onSideMenuItemClick(sideMenuItem);
+
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,

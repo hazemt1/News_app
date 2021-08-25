@@ -8,7 +8,8 @@ import 'package:news_app/modal/SourceResponse.dart';
 Future<SourceResponse> getSources(String category, String lang) async {
   // https://newsapi.org/v2/top-headlines/sources?apiKey=3ed0d5dca43940c1b65140d0ab1270eb&category=sports
   final uri = Uri.https('newsapi.org', '/v2/top-headlines/sources', {
-    'apiKey': '3ed0d5dca43940c1b65140d0ab1270eb',
+    // 'apiKey': '3ed0d5dca43940c1b65140d0ab1270eb',
+    'apiKey': '8c4d7ba02aaa41d195908ecef536978c',
     'category': '$category',
     // 'language': '$lang'
   });
@@ -28,14 +29,16 @@ Future<NewsResponse> getNews(
   if (searchText == '')
     uri = Uri.https('newsapi.org', '/v2/everything',
         {
-          'apiKey': '3ed0d5dca43940c1b65140d0ab1270eb',
+          // 'apiKey': '3ed0d5dca43940c1b65140d0ab1270eb',
+          'apiKey': '8c4d7ba02aaa41d195908ecef536978c',
           'sources': source.id,
           // 'language' : lang
         });
   else
     uri = Uri.https('newsapi.org', '/v2/everything',
         {
-          'apiKey': '3ed0d5dca43940c1b65140d0ab1270eb',
+          // 'apiKey': '3ed0d5dca43940c1b65140d0ab1270eb',
+          'apiKey': '8c4d7ba02aaa41d195908ecef536978c',
           'q': searchText,
           // 'language' : lang
         });

@@ -5,6 +5,8 @@ import 'package:news_app/home/widgets/NewsItem.dart';
 import 'package:news_app/modal/NewsResponse.dart';
 import 'package:news_app/modal/Source.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class NewsFragment extends StatefulWidget {
   final Source source;
@@ -44,7 +46,7 @@ class _NewsFragmentState extends State<NewsFragment> {
                 Container(
                   margin: EdgeInsets.only(top: 210, bottom: 40),
                   child: Text(
-                    "Error Loading Data!\nTry Again!",
+                  AppLocalizations.of(context)!.errorMassageForLoading,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 22),
                   ),
