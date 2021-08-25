@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:news_app/Home/widgets/ArticleContentScreen.dart';
-import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:news_app/api/AppConfigProvider.dart';
 import 'package:news_app/modal/Article.dart';
@@ -119,6 +117,7 @@ class ArticleScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: _launchURL,
+
                         child: Container(
                           padding: EdgeInsetsDirectional.fromSTEB(10, 20, 5, 5),
                           margin: EdgeInsets.all(5),

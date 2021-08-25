@@ -11,5 +11,7 @@
   "science" : "العلوم",
   "language" : "اللغة",
   "articleTitle" : "عنوان الخبر",
-  "articleContentTitle" : "محتوي الخبر"
+  "articleContentTitle" : "محتوي الخبر",
+  "search": "البحث",
+  "errorMassageForLoading" : "خطأ في تحميل البيانات!\nحاول مجددا!"
 }
