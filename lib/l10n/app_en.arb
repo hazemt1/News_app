@@ -9,5 +9,7 @@
   "business" : "Business",
   "environment" : "Environment",
   "science" : "Science",
-  "language" : "Language"
+  "language" : "Language",
+  "articleTitle" : "News Title",
+  "articleContentTitle" : "News Content"
 }

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:news_app/home/CategoryScreen.dart';
 import 'package:news_app/home/HomeScreen.dart';
 import 'package:news_app/home/Setting.dart';
+import 'Home/widgets/ArticleContentScreen.dart';
+import 'Home/widgets/ArticleScreen.dart';
+import 'modal/Article.dart';
 
 
 class RouteGenerator {
@@ -13,6 +16,16 @@ class RouteGenerator {
       case CategoryScreen.routeName:
         if (arg is CategoryScreenArguments)
           return MaterialPageRoute(builder: (_) => CategoryScreen(arg));
+        else
+          return _errorScreen();
+      case ArticleScreen.routeName:
+        if (arg is Article)
+          return MaterialPageRoute(builder: (_) => ArticleScreen(arg));
+        else
+          return _errorScreen();
+      case ArticleContentScreen.routeName:
+        if (arg is Article)
+          return MaterialPageRoute(builder: (_) => ArticleContentScreen(arg));
         else
           return _errorScreen();
       case Setting.routeName:

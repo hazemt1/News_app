@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => AppConfigProvider(),
       builder: (context, widget) {
-        final provider =Provider.of<AppConfigProvider>(context);
+        final provider = Provider.of<AppConfigProvider>(context);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           localizationsDelegates: [
